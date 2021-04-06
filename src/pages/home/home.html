@@ -1,0 +1,202 @@
+
+
+<div *ngIf="currentLevel==-1" class="font inner">
+<div (click)="videoPrompt()" style="position:absolute;right:8vw;top:10vh">
+<img style="width:6vw" src="assets/star.svg"><div class="animat pulsenormal infinite" style="font-size:3vw;color:white;display:inline-block"><b>{{numStars}}</b></div><!--<br>
+<b>Get More Stars</b>-->
+</div>
+
+
+<div (click)="freePlay()" style="position:absolute;left:5%;width:6%;top:10%;opacity:.4;font-size:2.5vw;line-height:2vw" [ngClass]="{'full':numStars>=randThresh,'animat pulsenormal infinite':numStars>=randThresh && numStars-4<randThresh}">
+  <img src="assets/rand.svg" style="width:100%">
+  <div *ngIf="numStars<randThresh">
+  <img style="opacity:.3;position:absolute;margin-left:50px;width:50%;z-index:999;margin-top:-55px" src="assets/lock.svg">
+  <b>{{randThresh}}</b> <img style="width:2vw" src="assets/star.svg">
+</div>
+
+</div>
+
+
+  <div style="font-size:14vw;margin-left:0vw;padding-top:12vh;letter-spacing: -1vw">
+    <div (click)="cmm()" style="position:absolute;font-size:2.5vw;margin:auto;left:52vw;right:0;margin-top:12vw;letter-spacing: 0px !important">a cinq-mars media game</div>
+<div class="letter instant animated" [ngClass]="{'rotateUp':titleAnimSeed%10==0,'rotateDown':titleAnimSeed%10!==0}">a</div>n<div class="letter instant animated" [ngClass]="{'rotateUp':titleAnimSeed%2==0,'rotateDown':titleAnimSeed%9!==0}">a</div>g<div class="letter instant animated" [ngClass]="{'rotateUp':titleAnimSeed%17==0,'rotateDown':titleAnimSeed%17!==0}">r</div><div class="letter instant animated" [ngClass]="{'rotateUp':titleAnimSeed%13==0,'rotateDown':titleAnimSeed%13!==0}">a</div><div class="letter instant animated" [ngClass]="{'rotateUp':titleAnimSeed%6==0,'rotateDown':titleAnimSeed%13!==0}">p</div><div class="letter instant animated" [ngClass]="{'rotateUp':titleAnimSeed%13==0,'rotateDown':titleAnimSeed%13!==0}">h</div>s 
+
+</div>
+<ion-scroll id="levels" scrollX="true" style="width:100%; height:80vh;direction:rtl;letter-spacing:0px !important;text-align:center;margin-top:3vh" [ngClass]="{'scrollbar':demo}">
+  
+  <ion-row nowrap>
+    <div (click)="choose(offset-i-1)" [ngClass]="{'animat pulsenormal infinite':!bestMoves[offset-i-1] && lvl.reqStars<=numStars}" style="cursor:pointer" *ngFor="let lvl of levels.slice(0,offset).reverse(); let i=index">
+<!--<span>{{nonNullLen(bestMoves)}}</span>-->
+<!--; let l=nonNullLen(bestMoves)+unlockedLevelsShown-index-->
+      <img *ngIf="lvl.reqStars>numStars" style="opacity:.3;position:absolute;width:8vh;margin-top:3vh" src="assets/lock.svg">
+    <ion-label [ngClass]="{'opac':lvl.reqStars>numStars,'semiFull':bestMoves[offset-i-1]>=lvl.moves[lvl.moves.length-1]}" style="font-size:15vh;direction:ltr;padding:4vw;padding-top:8vh !important;line-height:6vh">
+
+<span *ngIf="offset-i-1>0">
+      <span style="font-size:7vh">level</span> <b>{{offset-i-1}}</b>
+</span>
+
+      <br><span *ngIf="offset-i-1==0" style="font-size:10vh">
+<i>t<div class="letter instant animated" [ngClass]="{'rotateUp':titleAnimSeed%7==0,'rotateDown':titleAnimSeed%7!==0}">u</div>to<div class="letter instant animated" [ngClass]="{'rotateUp':titleAnimSeed%5==0,'rotateDown':titleAnimSeed%5!==0}">r</div>ial</i>
+</span><span *ngIf="offset-i-1>0" style="font-size:10vh"><i>{{lvl.letters}}</i></span><br>
+
+
+
+<img *ngFor="let stars of lvl.moves" [ngClass]="{'full':bestMoves[offset-i-1]<=stars}" style="width:3vw;opacity:.4" src="assets/star.svg">
+
+
+<!--<img [ngClass]="{'full':bestMoves[bestMoves.length+unlockedLevelsShown-i-1]<=lvl.moves[1]}" style="width:3vw;opacity:.4;margin-left:5px;margin-right:5px" src="assets/star.svg"><img [ngClass]="{'full':bestMoves[bestMoves.length+unlockedLevelsShown-i-1]<=lvl.moves[2]}" style="width:3vw;opacity:.4" src="assets/star.svg">
+-->
+
+<div style="font-size:3.5vh" *ngIf="lvl.reqStars>numStars">unlock with <b>{{lvl.reqStars-numStars}}</b> more star<span [hidden]="lvl.reqStars-numStars<2">s</span></div></ion-label>
+    </div>
+  </ion-row>
+</ion-scroll>
+
+
+<!--
+<br>
+<div style="font-size:5vw;border:1px solid white;border-radius:10px;width:20%">play</div>
+<div style="font-size:5vw;border:1px solid white;border-radius:10px;width:20%">options</div>
+<div style="font-size:5vw;border:1px solid white;border-radius:10px;width:20%">about</div>
+-->
+<!--
+<button ion-button large style="font-size:5vw;padding:1vw">start</button>
+</div>-->
+</div>
+
+<div *ngIf="currentLevel>-1" class="inner">
+
+<div *ngIf="currentLevel==0" style="color:white;font-size:2.5vw">
+  <div class="animat pulsenormal infinite" *ngIf="game.moves==levels[0].moves[0]" style="position:absolute;width:20%;right:5%;top:35vh;text-align:left">
+ <b>Drag</b> letters to rearrange the anagram and make new words. Try moving the <b>M</b> to the beginning of the word<!-- to make "<b>me</b>". -->
+ <br>
+ <img src="assets/line2.svg" style="width:40%;transform: rotate(-10deg) scaleX(-1);margin-left:-60px;margin-top:-20px">
+</div>
+
+  <div class="animat pulsenormal infinite" *ngIf="game.moves==levels[0].moves[0]-1" style="position:absolute;width:20%;left:5%;top:25vh;text-align:left">
+    <img src="assets/line2.svg" style="width:40%;transform: rotate(-200deg) scaleX(-1);margin-left:120px;margin-top:-20px">
+  <b>Tap</b> to rotate certain letters 180 degrees to make new ones. Both "<b>e</b>" and "<b>m</b>" are symmetrical and can be flipped.
+
+</div>
+
+
+  <div class="animat pulsenormal infinite" *ngIf="game.moves==levels[0].moves[0]-2" style="position:absolute;width:20%;right:5%;top:25vh;text-align:left">
+    <img src="assets/line2.svg" style="width:40%;transform: rotate(85deg) scaleX(-1);margin-left:-20px;margin-top:-20px">
+ You have a limited number of <b>moves</b>. The more efficient you are with your moves, the more stars you'll earn
+</div>
+
+  <div class="animat pulsenormal infinite" *ngIf="game.moves==levels[0].moves[0]-3" style="position:absolute;width:20%;left:5%;top:35vh;text-align:left">
+ You can <b>undo</b> an unlimited number of times by tapping the arrow above, <b>hold</b> it down to select a different level. 
+</div>
+  <div class="animat pulsenormal infinite" *ngIf="game.moves==levels[0].moves[0]-4" style="position:absolute;width:20%;right:5%;top:35vh;text-align:left">
+Try finding a path between all 6 words to finish the <b>tutorial</b>
+</div>
+
+</div>
+
+
+<div class="path" [ngClass]="{'smallerFont':game.scored.length>7}">
+  <span (click)="jumpBack(word)" *ngFor="let word of game.scored;let i=index"><!--.slice(0,game.scored.length-1)-->
+<ion-icon *ngIf="i>0" style="font-size:3vw" name="arrow-round-forward"></ion-icon> {{word}} 
+</span>
+</div>
+
+
+<!--this ANIMATION is no longer working pulse and pulsetwo-->
+  <div class="animated game" [ngClass]="{'pulse':game.scored.length%2==0 && game.scored.length>0,'pulsetwo':game.scored.length%2==1}">
+<!---->
+    <div style="width:100%;height:100%" *ngFor="let word of game.scored; let i=index">
+     <div style="position:absolute" [ngStyle]="{'top':background.y[i]+'%','left':background.x[i]+'%','font-size':background.size[i]+'vw','filter':'blur('+background.blur[i]+'vw)','opacity':'.5'}" > {{word}}</div>
+    </div>
+
+
+
+  <!--{{state | json}}<br><br>{{game.history | json}}-->
+  <!----> 
+  <ion-list class="word" [dragula]='"word"' [ngStyle]="{'padding-top':(23-state.length)/6+'vh'}" [(dragulaModel)]="state">
+<span [ngStyle]="{'font-size':(23-state.length*1.2)*1.4+'vw'}" *ngFor="let item of state; let i = index">
+
+<!--'shake':state.noshake==i,-->
+<div (click)="rotate(i)" [ngStyle]="{'padding':state.length/3+'vw'}" class="letter instant" [ngClass]="{'animated':animate.greenlight,'shake':item.flip==2,'rotateUp':item.flip==1,'rotateDown':item.flip==0}" ><!--'animated rotateDown':!state.transf[i],-->
+<!---->
+{{item.letter}}
+
+</div>
+
+
+</span>
+</ion-list>
+</div>
+<!---->
+<div class="score" style="text-align:center">
+<span class="anim" [ngClass]="{'pulse':animate.legal%2==0 && animate.legal>0,'pulsetwo':animate.legal%2==1}" style="display:inline-block">{{game.scored.length}}</span> of {{game.possible}}
+</div>
+
+<div class="anim infinite" [ngClass]="{'bigpulse':game.moves==0 && currentLevel<999,'leftSlide':currentLevel>=999}" style="position:absolute;left:10%;top:8%;z-index:9999;color:white;font-size:7vw" (click)="undo()" (press)="areYouSure()">  <!--<ion-icon *ngIf="game.moves==game.startmoves+game.possible" class="rotate-180" name="md-exit"></ion-icon>-->
+  <ion-icon name="md-undo"></ion-icon>
+
+  <span *ngIf="currentLevel>=999 || game.moves==levels[currentLevel].moves[0]" class="anim tada" style="display:inline-block;font-size:2vw;top:45%;left:120%;position:absolute">exit</span>
+
+   <span *ngIf="currentLevel<998 && game.moves<levels[currentLevel].moves[0] && (holdPrompt || game.moves==0)" class="anim tada" style="display:inline-block;font-size:1.6vw;top:45%;left:120%;position:absolute;white-space: nowrap;opacity:.5"><span style="font-size:2vw">hold to </span><ion-icon name="md-exit"></ion-icon></span>
+
+</div>
+
+<div *ngIf="currentLevel>=999" style="position:absolute;left:20%;top:8%;z-index:9999;color:white;font-size:7vw;" (click)="loadRand(true)">  <!--<ion-icon *ngIf="game.moves==game.startmoves+game.possible" class="rotate-180" name="md-exit"></ion-icon>-->
+  <ion-icon style="transform: scaleX(-1)" name="md-undo"></ion-icon>
+  <span style="display:inline-block;font-size:2vw;top:45%;left:120%;position:absolute">skip</span>
+</div>
+
+
+
+  <div *ngIf="currentLevel<999" style="position:absolute;width:10%;right:5%;top:13%;overflow:auto;white-space: nowrap">
+
+ <img class="full" style="width:2.1vw;opacity:.4" src="assets/star.svg">
+
+
+ <img *ngIf="levels[currentLevel].moves[1]" [ngClass]="{'full':game.moves>levels[currentLevel].moves[0]-levels[currentLevel].moves[1]}" style="width:2.1vw;opacity:.4" src="assets/star.svg">
+  <img *ngIf="levels[currentLevel].moves[2]" [ngClass]="{'full':game.moves>levels[currentLevel].moves[0]-levels[currentLevel].moves[2]}" style="width:2.1vw;opacity:.4;margin-left:1px;margin-right:1px" src="assets/star.svg">
+ 
+
+</div>
+
+ <div *ngIf="currentLevel>=999 && game.moves>0" style="position:absolute;width:10%;right:5%;top:10%;overflow:auto;white-space: nowrap;color:white;font-size:5vh">
+   <ion-icon name="md-undo"></ion-icon>
+ </div>
+
+<div (click)="moves()" style="position:absolute;right:7%;top:10%;z-index:9999;color:white;font-size:7vw">
+
+
+
+<span class="anim" [ngClass]="{'tada':game.moves%2==0 && game.moves!==0 && game.moves!==game.startmoves+game.possible,'tadatwo':game.moves%2==1 && game.moves!==game.startmoves+game.possible, 'pulsewhite infinite':game.moves==1 && currentLevel<999,'red':game.moves==0 && currentLevel<999}" style="display:inline-block">{{game.moves}}</span><span style="font-size:2vw"> moves</span>
+
+
+</div>
+
+
+
+</div>
+
+
+<!--
+<ion-content>
+  <ion-row>
+    <ion-col col-6 class="left">
+      <div class="header">First Bucket</div>
+      <ion-list [dragula]='"my-bag"' [dragulaModel]="q1">
+        <button ion-item *ngFor="let item of q1" detail-none>
+          {{item}}
+      </button>
+      </ion-list>
+    </ion-col>
+ 
+    <ion-col col-6 class="right">
+      <div class="header">Second Bucket</div>
+      <ion-list [dragula]='"my-bag"' [dragulaModel]="q2">
+        <button ion-item *ngFor="let item of q2" detail-none>
+          {{item}}
+        </button>
+      </ion-list>
+    </ion-col>
+  </ion-row>
+</ion-content>
+-->

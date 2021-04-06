@@ -1,0 +1,7 @@
+{
+  "name": "Anagraphs",
+  "integrations": {
+    "cordova": {}
+  },
+  "type": "ionic-angular"
+}

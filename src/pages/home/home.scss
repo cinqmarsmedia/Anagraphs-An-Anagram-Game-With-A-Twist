@@ -1,0 +1,90 @@
+page-home {
+
+.scrollbar{
+height:45vh !important;
+}
+
+.smallerFont{
+  font-size:3vw !important;
+}
+
+.leftSlide{
+  left:5% !important;
+}
+.path{
+  font-size:4vw;
+  position:absolute;
+  bottom:8vh;
+  z-index:999;
+  left:0;
+  right:0;
+  margin-left:auto;
+  margin-right:auto;
+  color:white;
+  opacity:.95
+}
+.inner{
+  text-shadow: 1px 1px #555;
+  text-align:center;
+}
+.game{
+  text-align:center;color:white;background:transparent;height:100%;transform: scale3d(1, 1, 1);margin-top:53vh;
+}
+.score{
+position: absolute;
+margin-left: auto;
+margin-right: auto;
+left: 0;
+right: 0;
+color:white;
+top:12%;
+font-size:5vw;
+}
+
+.full{
+  opacity:1;
+}
+
+.semiFull{
+  //opacity:.95 !important;
+  text-shadow: rgba(255,255,255,.5) 1px 1px 35px
+}
+
+
+.opac{
+  opacity:.5
+}
+
+
+.letter{
+	display:inline-block;
+}
+
+.flipped{
+    //-webkit-transform-origin: 6% 7%;
+    //transform-origin: 5% 555%;
+   -webkit-transform: rotate3d(0, 0, 1, 180deg);
+    transform: rotate3d(0, 0, 1, 180deg);
+}
+
+.word{
+  padding-top:0px !important;
+  margin: 0;
+  position: absolute;
+  top: 50%;
+  margin-top:-4px;
+  letter-spacing:-6px;
+  //padding-right:3vw; //?? why is this necessary?
+  /* a function of length? */
+  left:0;right:0;margin-left:auto;margin-right:auto;
+ 
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
+
+}
+
+
+
+
+
+}
