@@ -9,4 +9,4 @@ An spreadsheet database of anagraphs used to make the game is included along wit
 
 Please reach out with any questions, I will update the documentation soon!
 
-Thanks
+Thanks!
